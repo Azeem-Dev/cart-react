@@ -34,6 +34,17 @@ const AppProvider = ({ children }) => {
     dispatch({type:'DELETE_ITEM',payload:id});
   }
   
+  const fetchData = ()=>{
+    dispatch({type:"LOADING"});
+    const response = await fetch(url);
+    const cart = await response.json();
+    dispatch({type:'DISPLAY_ITEMS',payload:cart})
+  }
+
+  useEffect(()=>{
+    fetchData();
+  },[])
+
   useEffect(()=>{
 
     dispatch({type:'GET_TOTAL'})
